@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canavar Avı</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">SEN</h1>
+            <div class="healthbar">
+                <div :style="{width: playerLife + '%'}" class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
+                    {{playerLife}}%
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">CANAVAR</h1>
+            <div class="healthbar">
+                <div :style="{width: monsterLife + '%'}" class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
+                    {{monsterLife}}%
+                </div>
+            </div>
+        </div>
+    </section>
+    <section v-if="!gameStatus" class="row controls">
+        <div class="small-12 columns">
+            <button @click="startGame" id="start-game">YENİ OYUN</button>
+        </div>
+    </section>
+    <section v-if="gameStatus" class="row controls">
+        <div class="small-12 columns">
+            <button @click="playerAttack" id="attack">SALDIRI</button>
+            <button @click="specialAttack" id="special-attack">ÖZEL SALDIRI</button>
+            <button @click="lifeUp" id="heal">İLK YARDIM</button>
+            <button @click="giveUp" id="give-up">PES ET!</button>
+        </div>
+    </section>
+    <section v-if="gameStatus" class="row log">
+        <div class="small-12 columns">
+            <ul>
+                <li :class="log.turn == 'M' ?'monster-turn' :  'player-turn'" v-for="log in logs">{{log.text}}</li>
+            </ul>
+        </div>
+    </section>
+</div>
+</body>
+</html>
+
+<script src="app.js"></script>
